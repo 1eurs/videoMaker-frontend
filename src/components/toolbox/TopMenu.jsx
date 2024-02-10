@@ -73,7 +73,7 @@ const TopMenu = () => {
   };
 
   return (
-    <div className="flex justify-center items-center gap-2 h-full">
+    <div className="flex justify-center items-center gap-2 h-full bg-[#3C3633]">
       <AddSceneButton />
       <AddAvatarsButton />
       <AddImagesButton />

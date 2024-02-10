@@ -87,14 +87,5 @@ export default function Editor() {
     });
   }, [handleKeydown]);
 
-  return (
-    <div className="flex pl-[191px] w-full h-[82%]">
-      <Canvas
-        config={{
-          background: "#EEEDEB",
-          frameMargin: 200,
-        }}
-      />
-    </div>
-  );
+  return <Canvas config={{ background: "#3C3633" }} />;
 }

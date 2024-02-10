@@ -4,11 +4,11 @@ import ScenesContext from "../context/ScenesContext";
 const TextBox = ({ GetScript }) => {
   const { currentSceneId } = useContext(ScenesContext);
   const [scriptText, setScriptText] = useState("");
-  const [formVisible, setFormVisible] = useState(false);
 
+  console.log(currentSceneId);
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.target.tagName.toLowerCase() === "textarea") {
+      if (event.target.tagName.toLowerCase() === "input") {
         event.stopPropagation();
       }
     };
@@ -18,41 +18,26 @@ const TextBox = ({ GetScript }) => {
     };
   }, []);
 
-  const toggleFormVisibility = () => {
-    setFormVisible(!formVisible);
-  };
-
   const handleGenerateClick = () => {
     GetScript(currentSceneId, scriptText);
-    setFormVisible(false); // Close the form after generating
   };
 
   return (
-    <div className="">
-      <div className="absolute bottom-0 right-0">
+    <div className="flex items-center justify-center p-6">
+      <div className="flex border-2 rounded">
+        <input
+          type="text"
+          className="px-4 py-2 w-80"
+          placeholder="Describe the scene..."
+          onChange={(e) => setScriptText(e.target.value)}
+        ></input>
         <button
-          onClick={toggleFormVisibility}
-          className="bg-[#E0CCBE] text-[#3C3633] hover:bg-[#747264] hover:text-[#EEEDEB] font-bold py-2 px-4 rounded-md transition ease-in-out duration-150"
+          onClick={handleGenerateClick}
+          className="px-4 text-white bg-stone-600 border-l hover:bg-stone700 "
         >
-          {formVisible ? "Close Form" : "Open Form"}
+          Generate
         </button>
       </div>
-      {formVisible && (
-        <div className="w-[900px] p-4 rounded-lg shadow-md bg-[#EEEDEB]">
-          <textarea
-            value={scriptText}
-            onChange={(e) => setScriptText(e.target.value)}
-            className="resize-none w-full h-20 p-3 text-base rounded-lg border border-[#E0CCBE] focus:ring-[#747264] focus:border-[#747264] placeholder-[#747264] text-[#3C3633] bg-[#EEEDEB] shadow-inner"
-            placeholder="What's this slide about?"
-          ></textarea>
-          <button
-            onClick={handleGenerateClick}
-            className="mt-4 w-full bg-[#E0CCBE] text-[#3C3633] hover:bg-[#747264] hover:text-[#EEEDEB] font-bold py-2 rounded-md transition ease-in-out duration-150"
-          >
-            Generate
-          </button>
-        </div>
-      )}
     </div>
   );
 };

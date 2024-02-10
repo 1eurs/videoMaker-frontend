@@ -5,7 +5,7 @@ import DataContext from "../context/dataContext";
 import ScenesContext from "../context/ScenesContext";
 
 const Footer = () => {
-  const { GetScript, scripts } = useContext(DataContext);
+  const { getScript, scripts } = useContext(DataContext);
   const { currentSceneId } = useContext(ScenesContext);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -15,16 +15,16 @@ const Footer = () => {
 
   const handleGenerateScript = async (sceneId, scriptText) => {
     setIsLoading(true);
-    await GetScript(sceneId, scriptText);
+
+    await getScript(sceneId, scriptText);
     setIsLoading(false);
   };
 
   return (
     <div>
       {isLoading ? (
-        <div className="flex items-center justify-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#3C3633]"></div>
-          <span className="ml-3 text-[#3C3633]">Generating...</span>
+        <div className="flex items-center justify-center p-10">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-500"></div>
         </div>
       ) : currentScript ? (
         <Timeline currentScript={currentScript} />

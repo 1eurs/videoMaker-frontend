@@ -20,17 +20,37 @@ export const DataProvider = ({ children }) => {
     const res = await axios.get(`${API}/images-list`);
     setImages(res.data);
   };
+  const getScript = async (currentSceneId, scriptText, generate = true) => {
+    let response; // Declare response outside to make it accessible throughout the function
+    try {
+      if (generate) {
+        // Generate both script and audio
+        response = await axios.post(`${API}/get-script`, {
+          script: scriptText,
+        });
+      } else {
+        // Generate audio only
+        response = await axios.post(`${API}/get-script-audio-only`, {
+          script: scriptText,
+        });
+      }
 
-  const GetScript = async (currentSceneId, scriptText) => {
-    const res = await axios.post(`${API}/get-script`, { script: scriptText });
-    setScript((prev) => [
-      ...prev,
-      {
-        id: currentSceneId,
-        text: res.data.text,
-        audio: res.data.audio,
-      },
-    ]);
+      // Destructuring the response data for cleaner access
+      const { text, audio } = response.data;
+
+      // Update script state with the new script data
+      setScript((prev) => [
+        ...prev,
+        {
+          id: currentSceneId,
+          text, // Shorthand for text: text
+          audio, // Shorthand for audio: audio
+        },
+      ]);
+    } catch (error) {
+      console.error("Failed to fetch script:", error);
+      // Handle the error (e.g., display a notification or message to the user)
+    }
   };
 
   useEffect(() => {
@@ -40,7 +60,7 @@ export const DataProvider = ({ children }) => {
 
   return (
     <DataContext.Provider
-      value={{ avatars, images, GetScript, setScript, scripts }}
+      value={{ avatars, images, getScript, setScript, scripts }}
     >
       {children}
     </DataContext.Provider>

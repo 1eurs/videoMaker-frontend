@@ -49,7 +49,7 @@ const ScenesPanel = () => {
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="flex flex-col gap-4 py-4 px-2 bg-[#EEEDEB] shadow-md rounded-lg h-full"
+              className="flex flex-col gap-4 py-4 px-2 shadow-md rounded-lg h-full"
             >
               {scenes?.map((scene, index) => (
                 <Draggable
