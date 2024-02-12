@@ -73,4 +73,12 @@ export const Texts = [
     textAlign: "justify",
     lineHeight: 1.3,
   },
+  {
+    text: "Fancy",
+    fontSize: 200,
+    fontFamily: "'Lucida Handwriting', cursive",
+    fill: "#800080",
+    textAlign: "center",
+    lineHeight: 1.2,
+  },
 ];

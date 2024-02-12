@@ -5,30 +5,29 @@ const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
   const [images, setImages] = useState([]);
+  const unsplashAccessKey = process.env.UNSPLASH_ACCESS_KEY;
 
   const getImgUrls = async () => {
-    // Check if cached images exist
-    const cachedImages = localStorage.getItem("catImages");
+    const cachedImages = localStorage.getItem("unsplashImages");
     if (cachedImages) {
       setImages(JSON.parse(cachedImages));
     } else {
       try {
-        const options = {
-          method: "GET",
-          url: "https://api.thecatapi.com/v1/images/search?limit=10",
-          headers: {
-            "x-api-key":
-              "live_Vm983vukrpoH1EYRfgLou01EzMEpNXF1Gtl5dFv5P52lvLkjZxpOOAEy4vxICKkk",
-          },
-        };
+        const response = await axios.get(
+          "https://api.unsplash.com/photos/random",
+          {
+            params: {
+              client_id: unsplashAccessKey,
+              count: 15,
+            },
+          }
+        );
 
-        const res = await axios.request(options);
-        const imageUrls = res.data.map((img) => img.url);
-
+        const imageUrls = response.data.map((img) => img.urls.regular);
         setImages(imageUrls);
-        localStorage.setItem("catImages", JSON.stringify(imageUrls));
+        localStorage.setItem("unsplashImages", JSON.stringify(imageUrls));
       } catch (error) {
-        console.error("Failed to fetch images:", error);
+        console.error("Failed to fetch images from Unsplash:", error);
       }
     }
   };

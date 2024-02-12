@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useState } from "react";
 import DropdownContext from "../context/DropdownContext";
-import { colors } from "../data/BgColors";
 import { useEditor } from "@layerhub-io/react";
+import { colors } from "../data/BgColors";
 
 const AddBgColorPaletteButton = () => {
   const editor = useEditor();
