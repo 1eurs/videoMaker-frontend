@@ -12,18 +12,9 @@ const AddImagesButton = () => {
   const addImage = useCallback(
     async (src) => {
       try {
-        const proxiedImageUrl = `http://localhost:3001/proxy?url=${encodeURIComponent(
-          src
-        )}`;
-        const response = await fetch(proxiedImageUrl);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch image: ${response.statusText}`);
-        }
-        const blob = await response.blob();
-        const dataUrl = URL.createObjectURL(blob);
         editor.objects.add({
           type: "StaticImage",
-          src: dataUrl,
+          src: src,
         });
       } catch (error) {
         console.error("Error adding image:", error);
