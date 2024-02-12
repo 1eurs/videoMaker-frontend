@@ -1,69 +1,44 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import ScenesContext from "./ScenesContext";
 
 const DataContext = createContext();
 
-const API = "http://172.30.61.5:5000";
-
 export const DataProvider = ({ children }) => {
-  const [avatars, setAvatars] = useState([]);
   const [images, setImages] = useState([]);
-  const [scripts, setScript] = useState([]);
-
-  const getAvaUrls = async () => {
-    const res = await axios.get(`${API}/avatars-list`);
-    setAvatars(res.data);
-  };
 
   const getImgUrls = async () => {
-    const res = await axios.get(`${API}/images-list`);
-    setImages(res.data);
-  };
-  const getScript = async (currentSceneId, scriptText, generate = true) => {
-    let response; // Declare response outside to make it accessible throughout the function
-    try {
-      if (generate) {
-        // Generate both script and audio
-        response = await axios.post(`${API}/get-script`, {
-          script: scriptText,
-        });
-      } else {
-        // Generate audio only
-        response = await axios.post(`${API}/get-script-audio-only`, {
-          script: scriptText,
-        });
+    // Check if cached images exist
+    const cachedImages = localStorage.getItem("catImages");
+    if (cachedImages) {
+      setImages(JSON.parse(cachedImages));
+    } else {
+      try {
+        const options = {
+          method: "GET",
+          url: "https://api.thecatapi.com/v1/images/search?limit=10",
+          headers: {
+            "x-api-key":
+              "live_Vm983vukrpoH1EYRfgLou01EzMEpNXF1Gtl5dFv5P52lvLkjZxpOOAEy4vxICKkk",
+          },
+        };
+
+        const res = await axios.request(options);
+        const imageUrls = res.data.map((img) => img.url);
+
+        setImages(imageUrls);
+        localStorage.setItem("catImages", JSON.stringify(imageUrls));
+      } catch (error) {
+        console.error("Failed to fetch images:", error);
       }
-
-      // Destructuring the response data for cleaner access
-      const { text, audio } = response.data;
-
-      // Update script state with the new script data
-      setScript((prev) => [
-        ...prev,
-        {
-          id: currentSceneId,
-          text, // Shorthand for text: text
-          audio, // Shorthand for audio: audio
-        },
-      ]);
-    } catch (error) {
-      console.error("Failed to fetch script:", error);
-      // Handle the error (e.g., display a notification or message to the user)
     }
   };
 
   useEffect(() => {
-    getAvaUrls();
     getImgUrls();
   }, []);
 
   return (
-    <DataContext.Provider
-      value={{ avatars, images, getScript, setScript, scripts }}
-    >
-      {children}
-    </DataContext.Provider>
+    <DataContext.Provider value={{ images }}>{children}</DataContext.Provider>
   );
 };
 

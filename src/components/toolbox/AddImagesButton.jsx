@@ -7,14 +7,27 @@ const AddImagesButton = () => {
   const { openDropdown, toggleDropdown } = useContext(DropdownContext);
   const isOpen = openDropdown === "Add Image";
   const { images } = useContext(DataContext);
-  const editor = useEditor();
 
+  const editor = useEditor();
   const addImage = useCallback(
-    (item) => {
-      editor.objects.add({
-        type: "StaticImage",
-        src: item,
-      });
+    async (src) => {
+      try {
+        const proxiedImageUrl = `http://localhost:3001/proxy?url=${encodeURIComponent(
+          src
+        )}`;
+        const response = await fetch(proxiedImageUrl);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch image: ${response.statusText}`);
+        }
+        const blob = await response.blob();
+        const dataUrl = URL.createObjectURL(blob);
+        editor.objects.add({
+          type: "StaticImage",
+          src: dataUrl,
+        });
+      } catch (error) {
+        console.error("Error adding image:", error);
+      }
     },
     [editor]
   );
@@ -29,12 +42,12 @@ const AddImagesButton = () => {
       </button>
       {isOpen && (
         <div className="absolute mt-2 w-full h-fit max-w-xs grid grid-cols-3 gap-2 bg-[#EEEDEB] shadow-lg rounded-lg p-3 z-50">
-          {images.map((item, index) => (
+          {images.map((src, index) => (
             <div
               key={index}
               className="w-full h-20 bg-cover bg-center rounded-md cursor-pointer hover:opacity-75"
-              style={{ backgroundImage: `url(${item})` }}
-              onClick={() => addImage(item)}
+              style={{ backgroundImage: `url(${src})` }}
+              onClick={() => addImage(src)}
             ></div>
           ))}
         </div>

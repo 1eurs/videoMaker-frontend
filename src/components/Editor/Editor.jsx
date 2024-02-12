@@ -7,12 +7,10 @@ import ScenesContext from "../context/ScenesContext";
 
 export default function Editor() {
   const editor = useEditor();
-
   const handleKeydown = throttle((event) => {
     if (!editor || event?.repeat) {
       return;
     }
-
     if (keyShortcuts.isCtrlZero(event)) {
       event.preventDefault();
       editor.zoom.zoomToFit();
@@ -86,6 +84,5 @@ export default function Editor() {
       handleKeydown(e);
     });
   }, [handleKeydown]);
-
-  return <Canvas config={{ background: "#3C3633" }} />;
+  return <Canvas config={{ background: "#F3E2D9" }} />;
 }

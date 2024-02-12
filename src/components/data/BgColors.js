@@ -1,10 +1,37 @@
 export const colors = [
-  "#FF5733", // Hexadecimal color
-  "#33FF57", // Hexadecimal color
-  "rgb(51, 153, 255)", // RGB color
-  "rgba(255, 153, 51, 0.5)", // RGBA color with opacity
-  "hsl(120, 100%, 50%)", // HSL color
-  "red", // Named color
-  "blue", // Named color
-  "coral", // Named color
+  "#FF5733",
+  "#33FF57",
+  "rgb(51, 153, 255)",
+  "rgba(255, 153, 51, 0.5)",
+  "hsl(120, 100%, 50%)",
+  "red",
+  "blue",
+  "coral",
+  "purple",
+  "yellow",
+  "green",
+  "#FF69B4",
+  "rgb(255, 0, 255)",
+  "rgba(0, 255, 255, 0.5)",
+  "hsl(240, 100%, 50%)",
+  "#800080",
+  "#FFFF00",
+  "rgb(0, 128, 0)",
+  "rgba(255, 0, 0, 0.5)",
+  "hsl(0, 100%, 50%)",
+  "cyan",
+  "magenta",
+  "orange",
+  "turquoise",
+  "teal",
+  "#00CED1",
+  "#FFD700",
+  "rgb(255, 165, 0)",
+  "rgba(0, 0, 128, 0.5)",
+  "hsl(30, 100%, 50%)",
+  "#8A2BE2",
+  "#A52A2A",
+  "rgb(255, 192, 203)",
+  "rgba(64, 224, 208, 0.5)",
+  "hsl(300, 100%, 50%)",
 ];

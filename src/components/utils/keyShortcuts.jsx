@@ -1,100 +1,99 @@
-class KeyShortcuts {
-  // Delete
+class keyShortcuts {
+  //delete
   isDelete(event) {
-    return event.key === "Delete" || event.key === "Backspace";
+    return event.key === "Delete";
   }
 
-  // Save or update template
+  // save or update template
   isCtrlS(event) {
     return event.ctrlKey && event.code === "KeyS";
   }
 
-  // Select all
+  // select all
   isCtrlA(event) {
     return event.ctrlKey && event.code === "KeyA";
   }
 
-  // Copy
+  // copy
   isCtrlC(event) {
     return event.ctrlKey && event.code === "KeyC";
   }
 
-  // Paste
+  // paste
   isCtrlV(event) {
     return event.ctrlKey && event.code === "KeyV";
   }
-
-  // Redo
+  // redo
   isCtrlY(event) {
     return event.ctrlKey && event.code === "KeyY";
   }
 
-  // Cut
+  // cut
   isCtrlX(event) {
     return event.ctrlKey && event.code === "KeyX";
   }
 
-  // Move up
+  // move
   isArrowUp(event) {
     return event.code === "ArrowUp";
   }
 
-  // Move up with shift
+  // move
   isShiftArrowUp(event) {
     return event.shiftKey && event.code === "ArrowUp";
   }
 
-  // Move down
+  // move
   isArrowDown(event) {
     return event.code === "ArrowDown";
   }
 
-  // Move down with shift
+  // move
   isShiftArrowDown(event) {
     return event.shiftKey && event.code === "ArrowDown";
   }
 
-  // Move left
+  // move
   isArrowLeft(event) {
     return event.code === "ArrowLeft";
   }
 
-  // Move left with shift
+  // move
   isShiftArrowLeft(event) {
     return event.shiftKey && event.code === "ArrowLeft";
   }
 
-  // Move right
+  // move
   isArrowRight(event) {
     return event.code === "ArrowRight";
   }
 
-  // Move right with shift
+  // move
   isShiftArrowRight(event) {
     return event.shiftKey && event.code === "ArrowRight";
   }
 
-  // Modifier shift
+  // modifier
   isShift(event) {
     return event.shiftKey;
   }
 
-  // Decrease line height
+  // lineHeight--
   isAltDown(event) {
     return event.altKey && event.code === "ArrowDown";
   }
 
-  // Increase line height
+  // lineHeight++
   isAltUp(event) {
     return event.altKey && event.code === "ArrowUp";
   }
 
-  // Increase character spacing
+  // charSpacing++
   isAltRight(event) {
     return event.altKey && event.code === "ArrowRight";
   }
 
-  // Decrease character spacing
+  // charSpacing--
   isAltLeft(event) {
     return event.altKey && event.code === "ArrowLeft";
   }
@@ -139,35 +138,35 @@ class KeyShortcuts {
     return event.ctrlKey && event.shiftKey && event.code === "ArrowLeft";
   }
 
-  // Redo with Ctrl+Shift+Z
+  // redo
   isCtrlShiftZ(event) {
     return event.ctrlKey && event.shiftKey && event.code === "KeyZ";
   }
 
-  // Undo with Ctrl+Z
+  // undo
   isCtrlZ(event) {
     return event.ctrlKey && !event.shiftKey && event.code === "KeyZ";
   }
 
-  // Zoom reset
+  // zoom reset
   isCtrlOne(event) {
     return event.ctrlKey && event.key === "1";
   }
 
-  // Zoom in
+  // zoom in
   isCtrlMinus(event) {
     return event.ctrlKey && event.key === "-";
   }
 
-  // Zoom out
+  // zoom out
   isCtrlEqual(event) {
     return event.ctrlKey && event.key === "=";
   }
 
-  // Zoom to fit
+  // zoom to fit
   isCtrlZero(event) {
     return event.ctrlKey && event.key === "0";
   }
 }
 
-export default new KeyShortcuts();
+export default new keyShortcuts();
