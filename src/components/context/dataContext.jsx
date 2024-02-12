@@ -18,7 +18,7 @@ export const DataProvider = ({ children }) => {
           {
             params: {
               client_id: unsplashAccessKey,
-              count: 15,
+              count: 10,
             },
           }
         );
