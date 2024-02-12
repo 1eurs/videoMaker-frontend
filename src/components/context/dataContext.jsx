@@ -3,9 +3,10 @@ import axios from "axios";
 
 const DataContext = createContext();
 
+const unsplashAccessKey = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
+
 export const DataProvider = ({ children }) => {
   const [images, setImages] = useState([]);
-  const unsplashAccessKey = process.env.UNSPLASH_ACCESS_KEY;
 
   const getImgUrls = async () => {
     const cachedImages = localStorage.getItem("unsplashImages");
